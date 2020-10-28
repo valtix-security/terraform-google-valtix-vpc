@@ -67,7 +67,7 @@ resource "google_compute_firewall" "datapath-firewall-rule" {
 resource "google_compute_firewall" "egress-firewall-rule" {
   name    = "${var.egress_vpc_name}-rule"
   network = var.egress_vpc_name
-  source_tags = [var.datapath_network_tag]
+  source_tags = [var.egress_network_tag]
   allow {
     protocol = "tcp"
     ports    = ["80", "443"]
