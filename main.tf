@@ -74,3 +74,19 @@ resource "google_compute_firewall" "egress-firewall-rule" {
   }
   depends_on = [google_compute_network.egress-vpc]
 }
+
+#create VPC peering connection from datapath to egress
+resource "google_compute_network_peering" "datapath-to-egress" {
+  name         = "${var.datapath_vpc_name}-to-${var.egress_vpc_name}"
+  network      = google_compute_network.datapath-vpc.id
+  peer_network = google_compute_network.egress-vpc.id
+  import_custom_routes = "true"
+}
+
+#create VPC peering connection from egress to datapath
+resource "google_compute_network_peering" "egress-to-datapath" {
+  name         = "${var.egress_vpc_name}-to-${var.datapath_vpc_name}"
+  network      = google_compute_network.egress-vpc.id
+  peer_network = google_compute_network.datapath-vpc.id
+  export_custom_routes = "true"
+}
