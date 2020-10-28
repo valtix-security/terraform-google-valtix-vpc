@@ -22,7 +22,7 @@ variable "datapath_vpc_name" {
 
 variable "egress_vpc_name" {
   description = "name of egress vpc"
-  default     = "egress-hub-vpc"
+  default     = "egress-vpc"
 }
 
 variable "mgmt_subnet_name" {
@@ -37,9 +37,24 @@ variable "datapath_subnet_name" {
 
 variable "egress_subnet_name" {
   description = "name of egress subnet"
-  default     = "egress-hub-subnet"
+  default     = "egress-subnet"
 }
 
 variable "region" {
   description = "region where Google Cloujd VPC subnet gets deployed"
+}
+
+variable "mgmt_network_tag" {
+  description = "network tag for firewall rules for mgmt interfaces"
+  default = "valtix-mgmt"
+}
+
+variable "datapath_network_tag" {
+  description = "network tag for firewall rules for datapath interface for Valtix gateway"
+  default = "valtix-datapath"
+}
+
+variable "egress_network_tag" {
+  description = "network tag for firewall rules for egress gateway datapath interface"
+  default = "valtix-egress"
 }

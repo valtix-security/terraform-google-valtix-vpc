@@ -22,3 +22,14 @@ output "egress_subnet_id" {
   value = google_compute_subnetwork.egress-subnet.self_link
 }
 
+output "mgmt_network_tag" {
+  value = var.mgmt_network_tag
+}
+
+output "datapath_network_tag" {
+  value = var.datapath_network_tag
+}
+
+output "egress_network_tag" {
+  value = var.egress_network_tag
+}

@@ -43,7 +43,7 @@ resource "google_compute_subnetwork" "egress-subnet" {
 resource "google_compute_firewall" "mgmt-firewall-rule" {
   name    = "${var.mgmt_vpc_name}-rule"
   network = var.mgmt_vpc_name
-
+  source_tags = [var.mgmt_network_tag]
   allow {
     protocol = "tcp"
     ports    = ["22"]
@@ -55,7 +55,7 @@ resource "google_compute_firewall" "mgmt-firewall-rule" {
 resource "google_compute_firewall" "datapath-firewall-rule" {
   name    = "${var.datapath_vpc_name}-rule"
   network = var.datapath_vpc_name
-
+  source_tags = [var.datapath_network_tag]
   allow {
     protocol = "tcp"
     ports    = ["22", "80", "443"]
@@ -67,7 +67,7 @@ resource "google_compute_firewall" "datapath-firewall-rule" {
 resource "google_compute_firewall" "egress-firewall-rule" {
   name    = "${var.egress_vpc_name}-rule"
   network = var.egress_vpc_name
-
+  source_tags = [var.datapath_network_tag]
   allow {
     protocol = "tcp"
     ports    = ["80", "443"]
