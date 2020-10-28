@@ -48,6 +48,7 @@ resource "google_compute_firewall" "mgmt-firewall-rule" {
     protocol = "tcp"
     ports    = ["22"]
   }
+  depends_on = [google_compute_network.mgmt_vpc_name]
 }
 
 #Create datapath firewall rule
@@ -59,6 +60,7 @@ resource "google_compute_firewall" "datapath-firewall-rule" {
     protocol = "tcp"
     ports    = ["22", "80", "443"]
   }
+  depends_on = [google_compute_network.datapath_vpc_name]
 }
 
 #Create egress firewall rule
@@ -70,4 +72,5 @@ resource "google_compute_firewall" "egress-firewall-rule" {
     protocol = "tcp"
     ports    = ["80", "443"]
   }
+  depends_on = [google_compute_network.egress_vpc_name]
 }
