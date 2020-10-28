@@ -17,12 +17,12 @@ variable "mgmt_vpc_name" {
 
 variable "datapath_vpc_name" {
   description = "name of datapath vpc"
-   default    = "datapath-vpc"
+  default     = "datapath-vpc"
 }
 
 variable "egress_vpc_name" {
   description = "name of egress vpc"
-   default    = "egress-hub-vpc"
+  default     = "egress-hub-vpc"
 }
 
 variable "mgmt_subnet_name" {
@@ -41,5 +41,5 @@ variable "egress_subnet_name" {
 }
 
 variable "region" {
-  description  = "region where Google Cloujd VPC subnet gets deployed"
+  description = "region where Google Cloujd VPC subnet gets deployed"
 }
