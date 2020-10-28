@@ -60,7 +60,7 @@ resource "google_compute_firewall" "datapath-firewall-rule" {
     protocol = "tcp"
     ports    = ["22", "80", "443"]
   }
-  depends_on = [google_compute_network.datapath-vpc
+  depends_on = [google_compute_network.datapath-vpc]
 }
 
 #Create egress firewall rule
