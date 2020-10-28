@@ -62,7 +62,7 @@ resource "google_compute_firewall" "datapath-firewall-rule" {
 }
 
 #Create egress firewall rule
-resource "google_compute_firewall" "datapath-firewall-rule" {
+resource "google_compute_firewall" "egress-firewall-rule" {
   name    = "${var.egress_vpc_name}-rule"
   network = var.egress_vpc_name
 
