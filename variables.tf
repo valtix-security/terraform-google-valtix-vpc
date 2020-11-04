@@ -46,15 +46,15 @@ variable "region" {
 
 variable "mgmt_network_tag" {
   description = "network tag for firewall rules for mgmt interfaces"
-  default = "valtix-mgmt"
+  default     = "valtix-mgmt"
 }
 
 variable "datapath_network_tag" {
   description = "network tag for firewall rules for datapath interface for Valtix gateway"
-  default = "valtix-datapath"
+  default     = "valtix-datapath"
 }
 
 variable "egress_network_tag" {
   description = "network tag for firewall rules for egress gateway datapath interface"
-  default = "valtix-egress"
+  default     = "valtix-egress"
 }

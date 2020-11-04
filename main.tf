@@ -41,8 +41,8 @@ resource "google_compute_subnetwork" "egress-subnet" {
 
 #Create mgmt firewall rule
 resource "google_compute_firewall" "mgmt-firewall-rule" {
-  name    = "${var.mgmt_vpc_name}-rule"
-  network = var.mgmt_vpc_name
+  name        = "${var.mgmt_vpc_name}-rule"
+  network     = var.mgmt_vpc_name
   source_tags = [var.mgmt_network_tag]
   allow {
     protocol = "tcp"
@@ -53,20 +53,21 @@ resource "google_compute_firewall" "mgmt-firewall-rule" {
 
 #Create datapath firewall rule
 resource "google_compute_firewall" "datapath-firewall-rule" {
-  name    = "${var.datapath_vpc_name}-rule"
-  network = var.datapath_vpc_name
-  source_tags = [var.datapath_network_tag]
+  name          = "${var.datapath_vpc_name}-rule"
+  network       = var.datapath_vpc_name
+  source_ranges = ["0.0.0.0/0"]
+  target_tags   = [var.datapath_network_tag]
   allow {
     protocol = "tcp"
-    ports    = ["22", "80", "443"]
+    ports    = ["22", "80", "443", "65534"]
   }
   depends_on = [google_compute_network.datapath-vpc]
 }
 
 #Create egress firewall rule
 resource "google_compute_firewall" "egress-firewall-rule" {
-  name    = "${var.egress_vpc_name}-rule"
-  network = var.egress_vpc_name
+  name        = "${var.egress_vpc_name}-rule"
+  network     = var.egress_vpc_name
   source_tags = [var.egress_network_tag]
   allow {
     protocol = "tcp"
@@ -77,16 +78,16 @@ resource "google_compute_firewall" "egress-firewall-rule" {
 
 #create VPC peering connection from datapath to egress
 resource "google_compute_network_peering" "datapath-to-egress" {
-  name         = "${var.datapath_vpc_name}-to-${var.egress_vpc_name}"
-  network      = google_compute_network.datapath-vpc.id
-  peer_network = google_compute_network.egress-vpc.id
+  name                 = "${var.datapath_vpc_name}-to-${var.egress_vpc_name}"
+  network              = google_compute_network.datapath-vpc.id
+  peer_network         = google_compute_network.egress-vpc.id
   import_custom_routes = "true"
 }
 
 #create VPC peering connection from egress to datapath
 resource "google_compute_network_peering" "egress-to-datapath" {
-  name         = "${var.egress_vpc_name}-to-${var.datapath_vpc_name}"
-  network      = google_compute_network.egress-vpc.id
-  peer_network = google_compute_network.datapath-vpc.id
+  name                 = "${var.egress_vpc_name}-to-${var.datapath_vpc_name}"
+  network              = google_compute_network.egress-vpc.id
+  peer_network         = google_compute_network.datapath-vpc.id
   export_custom_routes = "true"
 }
